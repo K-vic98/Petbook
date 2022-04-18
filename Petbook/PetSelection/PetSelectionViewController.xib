@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PetSelectionViewController" customModule="Pet_tinder" customModuleProvider="target">
+            <connections>
+                <outlet property="kolodaView" destination="92L-Jg-AX2" id="WaH-LE-cGe"/>
+                <outlet property="view" destination="iN0-l3-epB" id="4Kp-4d-vX6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBG-zL-vON" userLabel="Dislike">
+                    <rect key="frame" x="30" y="728.5" width="103.5" height="103.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="IBG-zL-vON" secondAttribute="height" id="tRi-tB-ZEX"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <backgroundConfiguration key="background" image="xmark.circle" catalog="system"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="dislikePressed:" destination="-1" eventType="touchUpInside" id="fPg-m2-EKo"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Amd-vR-UiA" userLabel="Like">
+                    <rect key="frame" x="280.5" y="728.5" width="103.5" height="103.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Amd-vR-UiA" secondAttribute="height" id="Feb-mB-5Ov"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <backgroundConfiguration key="background" image="heart.circle" catalog="system"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="likePressed:" destination="-1" eventType="touchUpInside" id="MC4-lk-uXG"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGE-Hb-kT1" userLabel="Return">
+                    <rect key="frame" x="155.5" y="708.5" width="103.5" height="103.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="CGE-Hb-kT1" secondAttribute="height" id="iv3-Fa-eAD"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain">
+                        <backgroundConfiguration key="background" image="arrowshape.turn.up.left.circle" catalog="system"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="returnPressed:" destination="-1" eventType="touchUpInside" id="Mai-aB-Ixi"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92L-Jg-AX2" userLabel="Koloda" customClass="KolodaView" customModule="Koloda">
+                    <rect key="frame" x="50" y="241" width="314" height="314"/>
+                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="92L-Jg-AX2" secondAttribute="height" id="yp6-fL-Mtb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="leading" secondItem="IBG-zL-vON" secondAttribute="leading" constant="-30" id="2IU-Zi-wY7"/>
+                <constraint firstItem="IBG-zL-vON" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="1/4" id="9g4-9s-kW2"/>
+                <constraint firstItem="CGE-Hb-kT1" firstAttribute="height" secondItem="IBG-zL-vON" secondAttribute="height" id="R41-Yu-kxG"/>
+                <constraint firstItem="CGE-Hb-kT1" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="XjR-j6-l5t"/>
+                <constraint firstItem="92L-Jg-AX2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aP6-YI-PBp"/>
+                <constraint firstItem="92L-Jg-AX2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-50" id="bht-CX-eNu"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Amd-vR-UiA" secondAttribute="bottom" constant="30" id="cLp-zw-Mol"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Amd-vR-UiA" secondAttribute="trailing" constant="30" id="eqQ-z5-n2g"/>
+                <constraint firstItem="CGE-Hb-kT1" firstAttribute="width" secondItem="IBG-zL-vON" secondAttribute="width" id="jvc-SY-fnK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="CGE-Hb-kT1" secondAttribute="bottom" constant="50" id="rS2-fX-tNj"/>
+                <constraint firstItem="IBG-zL-vON" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-30" id="uzW-jW-dYh"/>
+                <constraint firstItem="92L-Jg-AX2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="y9f-Qr-g2H"/>
+                <constraint firstItem="Amd-vR-UiA" firstAttribute="width" secondItem="IBG-zL-vON" secondAttribute="width" id="yjQ-Or-7Un"/>
+            </constraints>
+            <point key="canvasLocation" x="131.8840579710145" y="111.83035714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrowshape.turn.up.left.circle" catalog="system" width="128" height="121"/>
+        <image name="heart.circle" catalog="system" width="128" height="121"/>
+        <image name="xmark.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
