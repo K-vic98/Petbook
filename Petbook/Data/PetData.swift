@@ -20,12 +20,16 @@ enum Sympathy
     case notChosen
     case no
     case yes
+    case nothing
 }
 
 protocol PetDataHandler
 {
+    var index: Int { get set }
+    var currentPageStatus: Sympathy { get set }
+    
     func showPetsWithoutStatus() -> Int
     func showFavoritePets() -> Int
-    func showPet(index: Int, currentStatus: Sympathy) -> Pet
-    func changePetStatus(index: Int, currentStatus: Sympathy, futureStatus: Sympathy)
+    func showPet() -> Pet
+    func changePetStatus(currentStatus: Sympathy, futureStatus: Sympathy)
 }

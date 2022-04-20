@@ -10,16 +10,9 @@ final class DescriptionViewController: UIViewController
     
     private let petsData: PetDataHandler?
     
-    private let index: Int
-    private let openingStatus: Sympathy
-    
     init(petIndex: Int, openingStatus: Sympathy)
     {
         petsData = container.resolve(PetDataHandler.self)
-        
-        index = petIndex
-        self.openingStatus = openingStatus
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,10 +27,7 @@ final class DescriptionViewController: UIViewController
         
         var slides: [ZKCarouselSlide] = []
         
-        guard let safePet = petsData?.showPet(index: index, currentStatus: openingStatus) else
-        {
-            return
-        }
+        guard let safePet = petsData?.showPet() else { return }
         
         for photo in safePet.photos
         {

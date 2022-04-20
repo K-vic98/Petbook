@@ -10,4 +10,6 @@ target 'Petbook' do
   pod "Reusable"
   pod "ZKCarousel", :git => "https://github.com/K-vic98/ZKCarousel"
   pod "Swinject"
+  pod "Firebase/Auth"
+  pod "Firebase/Firestore"
 end

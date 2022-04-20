@@ -24,10 +24,15 @@ final class PetSelectionViewController: UIViewController
         super.viewDidLoad()
         
         title = "Pets"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .done, target: self, action: #selector(openSearchSettings))
         
         kolodaView.dataSource = self
         kolodaView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        petsData?.currentPageStatus = .notChosen
     }
     
     @IBAction private func dislikePressed(_ sender: UIButton)
@@ -35,19 +40,9 @@ final class PetSelectionViewController: UIViewController
         kolodaView.swipe(.left, force: true)
     }
     
-    @IBAction private func returnPressed(_ sender: Any)
-    {
-        kolodaView.revertAction(direction: .up)
-    }
-    
     @IBAction private func likePressed(_ sender: Any)
     {
         kolodaView.swipe(.right, force: true)
-    }
-    
-    @objc private func openSearchSettings()
-    {
-        
     }
 }
 
@@ -63,17 +58,19 @@ extension PetSelectionViewController: KolodaViewDelegate
         switch direction
         {
             case .left, .topLeft, .bottomLeft:
-                petsData?.changePetStatus(index: index, currentStatus: .notChosen, futureStatus: .no)
+                petsData?.index = index
+                petsData?.changePetStatus(currentStatus: .notChosen, futureStatus: .no)
                 
             case .right, .topRight, .bottomRight:
-                petsData?.changePetStatus(index: index, currentStatus: .notChosen, futureStatus: .yes)
+                petsData?.changePetStatus(currentStatus: .notChosen, futureStatus: .yes)
             default: ()
         }
     }
     
     func koloda(_ koloda: KolodaView, didRewindTo index: Int)
     {
-        petsData?.changePetStatus(index: index, currentStatus: .yes, futureStatus: .notChosen)
+        petsData?.index = index
+        petsData?.changePetStatus(currentStatus: .yes, futureStatus: .notChosen)
     }
 }
 
@@ -94,7 +91,9 @@ extension PetSelectionViewController: KolodaViewDataSource
         let petCard = PetCardView.loadFromNib()
         petCard.petClickHandlerDelegate = self
         
-        guard let safePet = petsData?.showPet(index: index, currentStatus: .notChosen) else
+        petsData?.index = index
+        
+        guard let safePet = petsData?.showPet() else
         {
             return UIView()
         }

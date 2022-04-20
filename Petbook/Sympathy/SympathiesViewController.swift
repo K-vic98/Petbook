@@ -27,6 +27,7 @@ final class SympathiesViewController: UITableViewController
     {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        petsData?.currentPageStatus = .yes
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -37,11 +38,8 @@ final class SympathiesViewController: UITableViewController
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell: SympathyViewCell = tableView.dequeueReusableCell(for: indexPath)
-        
-        guard let safePet = petsData?.showPet(index: indexPath.row, currentStatus: .yes) else
-        {
-            return UITableViewCell()
-        }
+        petsData?.index = indexPath.row
+        guard let safePet = petsData?.showPet() else { return UITableViewCell() }
         
         cell.changePresentetion(image: safePet.photos[0], text: safePet.name)
         
