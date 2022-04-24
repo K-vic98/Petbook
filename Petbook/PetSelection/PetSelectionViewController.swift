@@ -5,13 +5,16 @@ final class PetSelectionViewController: UIViewController
 {
     @IBOutlet private weak var kolodaView: KolodaView!
     
-    private var petsData: PetDataHandler?
+    private var petRepo: PetRepo?
+    private let petsWithoutData: [Pet]
     
     init()
     {
+        petRepo = container.resolve(PetRepo.self)
+        petsWithoutData = Array(petRepo?.pets.filter({ pet in
+            pet.sympathy == nil
+        }) ?? [])
         super.init(nibName: nil, bundle: nil)
-        
-        petsData = container.resolve(PetDataHandler.self)
     }
     
     required init?(coder: NSCoder)
@@ -29,12 +32,6 @@ final class PetSelectionViewController: UIViewController
         kolodaView.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool)
-    {
-        super.viewWillAppear(animated)
-        petsData?.currentPageStatus = .notChosen
-    }
-    
     @IBAction private func dislikePressed(_ sender: UIButton)
     {
         kolodaView.swipe(.left, force: true)
@@ -48,29 +45,19 @@ final class PetSelectionViewController: UIViewController
 
 extension PetSelectionViewController: KolodaViewDelegate
 {
-    func kolodaDidRunOutOfCards(_ koloda: KolodaView)
-    {
-        
-    }
-    
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection)
     {
+        let petID = petsWithoutData[index].id
+        
         switch direction
         {
             case .left, .topLeft, .bottomLeft:
-                petsData?.index = index
-                petsData?.changePetStatus(currentStatus: .notChosen, futureStatus: .no)
+                petRepo?[sympathyFor: petID] = false
                 
             case .right, .topRight, .bottomRight:
-                petsData?.changePetStatus(currentStatus: .notChosen, futureStatus: .yes)
+                petRepo?[sympathyFor: petID] = true
             default: ()
         }
-    }
-    
-    func koloda(_ koloda: KolodaView, didRewindTo index: Int)
-    {
-        petsData?.index = index
-        petsData?.changePetStatus(currentStatus: .yes, futureStatus: .notChosen)
     }
 }
 
@@ -78,7 +65,7 @@ extension PetSelectionViewController: KolodaViewDataSource
 {
     func kolodaNumberOfCards(_ koloda:KolodaView) -> Int
     {
-        return petsData?.showPetsWithoutStatus() ?? 0
+        return petsWithoutData.count
     }
     
     func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed
@@ -91,14 +78,11 @@ extension PetSelectionViewController: KolodaViewDataSource
         let petCard = PetCardView.loadFromNib()
         petCard.petClickHandlerDelegate = self
         
-        petsData?.index = index
+        let petID = petsWithoutData[index].id
         
-        guard let safePet = petsData?.showPet() else
-        {
-            return UIView()
-        }
+        guard let pet = petRepo?[petID] else { return UIView() }
         
-        petCard.updatePresentation(avatar: safePet.photos.first!, age: "\(safePet.age) 🎂", name: safePet.name, sex: safePet.sex.rawValue)
+        petCard.pet = pet
         
         return petCard
     }
@@ -106,14 +90,18 @@ extension PetSelectionViewController: KolodaViewDataSource
 
 extension PetSelectionViewController: PetClickHandler
 {
-    func openDescription()
+    func openDescription(pet: Pet?)
     {
-        let descriptionViewController = DescriptionViewController(petIndex: kolodaView.currentCardIndex, openingStatus: .notChosen)
+        guard let pet = pet else { return }
+        
+        let descriptionViewController = DescriptionViewController()
+        descriptionViewController.pet = pet
+        
         present(descriptionViewController, animated: true)
     }
 }
 
 protocol PetClickHandler: AnyObject
 {
-    func openDescription()
+    func openDescription(pet: Pet?)
 }

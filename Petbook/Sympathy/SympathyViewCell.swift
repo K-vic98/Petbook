@@ -1,15 +1,21 @@
 import UIKit
 import Reusable
+import Kingfisher
 
 final class SympathyViewCell: UITableViewCell, NibReusable
 {
     @IBOutlet private weak var avatarImage: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     
-    func changePresentetion(image: UIImage, text: String)
+    var pet: Pet?
     {
-        avatarImage.image = image
-        nameLabel.text = text
+        didSet
+        {
+            guard let pet = pet else { return }
+            
+            avatarImage.kf.setImage(with: pet.photoURL)
+            nameLabel.text = pet.name
+        }
     }
     
     override func layoutSubviews()

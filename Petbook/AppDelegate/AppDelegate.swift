@@ -13,10 +13,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate
            return FirebazeIntercalation()
          }.inObjectScope(.container)
         
-        container.register(PetDataHandler.self)
+        container.register(PetRepo.self)
          { _ in
-           return PetFirebazeDataHandler()
+           return FirebasePetRepo()
          }.inObjectScope(.container)
+        
+        container.resolve(PetRepo.self)?.bootstrap()
         
         return true
     }

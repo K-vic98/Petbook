@@ -13,7 +13,7 @@
                 <outlet property="ageLabel" destination="bFu-sD-ULD" id="pee-2W-Nb7"/>
                 <outlet property="descriptionTextView" destination="KMW-TP-Vec" id="PUM-wI-Fj3"/>
                 <outlet property="nameAndSexLabel" destination="Hq0-2J-ypd" id="zGg-vR-cOP"/>
-                <outlet property="photos" destination="idd-SM-dKl" id="Zpm-kM-tCc"/>
+                <outlet property="photoImage" destination="idd-SM-dKl" id="3UU-zS-g5Q"/>
                 <outlet property="view" destination="iN0-l3-epB" id="dBF-MI-kmg"/>
             </connections>
         </placeholder>
@@ -22,33 +22,33 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="idd-SM-dKl" userLabel="Photos" customClass="ZKCarousel" customModule="ZKCarousel">
-                    <rect key="frame" x="20" y="44" width="350" height="350"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="idd-SM-dKl" userLabel="Photo" customClass="UIImageView">
+                    <rect key="frame" x="20" y="64" width="350" height="350"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="idd-SM-dKl" secondAttribute="height" id="MvO-Y3-AwP"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hq0-2J-ypd" userLabel="NameAndSex">
-                    <rect key="frame" x="20" y="399" width="350" height="43.666666666666686"/>
+                    <rect key="frame" x="20" y="419" width="350" height="43.666666666666686"/>
                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="65 🎂" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFu-sD-ULD" userLabel="Age">
-                    <rect key="frame" x="20" y="442.66666666666669" width="350" height="22"/>
+                    <rect key="frame" x="20" y="462.66666666666669" width="350" height="22"/>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgJ-6p-fkx" userLabel="Description">
-                    <rect key="frame" x="20" y="474.66666666666669" width="204" height="58.333333333333314"/>
+                    <rect key="frame" x="20" y="494.66666666666669" width="204" height="58.333333333333314"/>
                     <fontDescription key="fontDescription" type="system" pointSize="45"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMW-TP-Vec" userLabel="DescriptionTextView">
-                    <rect key="frame" x="20" y="533" width="350" height="277"/>
+                    <rect key="frame" x="20" y="553" width="350" height="257"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <color key="textColor" systemColor="labelColor"/>
@@ -69,7 +69,7 @@
                 <constraint firstItem="fgJ-6p-fkx" firstAttribute="top" secondItem="bFu-sD-ULD" secondAttribute="bottom" constant="10" id="TtS-Gx-Nk0"/>
                 <constraint firstItem="bFu-sD-ULD" firstAttribute="height" secondItem="Hq0-2J-ypd" secondAttribute="height" multiplier="1/2" id="Ww4-1F-6kV"/>
                 <constraint firstItem="Hq0-2J-ypd" firstAttribute="top" secondItem="idd-SM-dKl" secondAttribute="bottom" constant="5" id="ZSl-4W-uzs"/>
-                <constraint firstItem="idd-SM-dKl" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="ZmF-Jk-3DN"/>
+                <constraint firstItem="idd-SM-dKl" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="ZmF-Jk-3DN"/>
                 <constraint firstItem="Hq0-2J-ypd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="bP4-Nt-UKA"/>
                 <constraint firstItem="fgJ-6p-fkx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="biC-iz-zeL"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KMW-TP-Vec" secondAttribute="trailing" constant="20" id="cRO-Oq-FcY"/>

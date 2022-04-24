@@ -26,14 +26,14 @@ final class AutorationViewController: UIViewController
         guard let login = loginTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         
-        let authorization = firebazeIntercalation?.authorizeUser(email: login, password: password)
-        
-        guard let authorizationError = authorization else
+        Task
         {
-            return
+            try await firebazeIntercalation?.authorizeUser(email: login, password: password)
+            await MainActor.run
+            {
+                UIApplication.shared.keyWindow?.rootViewController = openTabBarController()
+            }
         }
-        
-        errorLabel.text = authorizationError
     }
     
     @IBAction private func RegisterPressed(_ sender: UIButton)
@@ -41,11 +41,10 @@ final class AutorationViewController: UIViewController
         guard let login = loginTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         
-        let registation = firebazeIntercalation?.registerUser(email: login, password: password)
-        
-        guard let registationError = registation else { return }
-        
-        errorLabel.text = registationError
+        Task
+        {
+            try await firebazeIntercalation?.registerUser(email: login, password: password)
+        }
     }
     
     private func openTabBarController() -> UITabBarController
@@ -55,12 +54,10 @@ final class AutorationViewController: UIViewController
         let accountViewController = AccountViewController()
         accountViewController.tabBarItem = UITabBarItem(title: "Account", image: UIImage(systemName: "person.crop.circle"), tag: 0)
         
-        let petSelectionViewController = UINavigationController(rootViewController: PetSelectionViewController())
-        petSelectionViewController.navigationBar.prefersLargeTitles = true
+        let petSelectionViewController = PetSelectionViewController()
         petSelectionViewController.tabBarItem = UITabBarItem(title: "Pets", image: UIImage(systemName: "hare"), tag: 1)
         
-        let sympathiesViewController = UINavigationController(rootViewController: SympathiesViewController())
-        sympathiesViewController.navigationBar.prefersLargeTitles = true
+        let sympathiesViewController = SympathiesViewController()
         sympathiesViewController.tabBarItem = UITabBarItem(title: "Sympathies", image: UIImage(systemName: "heart"), tag: 2)
         
         tabBarController.setViewControllers([accountViewController, petSelectionViewController, sympathiesViewController], animated: true)

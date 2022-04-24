@@ -1,5 +1,6 @@
 import UIKit
 import Reusable
+import Kingfisher
 
 final internal class PetCardView: UIView, NibLoadable
 {
@@ -10,17 +11,22 @@ final internal class PetCardView: UIView, NibLoadable
     
     weak var petClickHandlerDelegate: PetClickHandler?
     
-    func updatePresentation(avatar: UIImage, age: String, name: String, sex: String)
+    var pet: Pet?
     {
-        avatarImage.image = avatar
-        ageLabel.text = age
-        nameLabel.text = name
-        sexLabel.text = sex
+        didSet
+        {
+            guard let pet = pet else { return }
+            
+            avatarImage.kf.setImage(with: pet.photoURL)
+            ageLabel.text = String(pet.age)
+            nameLabel.text = pet.name
+            sexLabel.text = pet.sex.rawValue
+        }
     }
     
     @IBAction private func cardPressed(_ sender: UIButton)
     {
-        petClickHandlerDelegate?.openDescription()
+        petClickHandlerDelegate?.openDescription(pet: pet ?? nil)
     }
     
     override func layoutSubviews()

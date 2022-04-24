@@ -708,6 +708,7 @@ PODS:
     - Libuv-gRPC (= 0.0.10)
   - gRPC-Core/Interface (1.44.0)
   - GTMSessionFetcher/Core (1.7.1)
+  - Kingfisher (7.2.1)
   - Koloda (5.0.1):
     - pop (~> 1.0)
   - leveldb-library (1.22.1)
@@ -730,15 +731,14 @@ PODS:
   - Reusable/Storyboard (4.1.2)
   - Reusable/View (4.1.2)
   - Swinject (2.8.1)
-  - ZKCarousel (1.1.0)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
+  - Kingfisher
   - Koloda
   - Reusable
   - Swinject
-  - ZKCarousel (from `https://github.com/K-vic98/ZKCarousel`)
 
 SPEC REPOS:
   trunk:
@@ -754,6 +754,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - Kingfisher
     - Koloda
     - leveldb-library
     - Libuv-gRPC
@@ -762,15 +763,6 @@ SPEC REPOS:
     - PromisesObjC
     - Reusable
     - Swinject
-
-EXTERNAL SOURCES:
-  ZKCarousel:
-    :git: https://github.com/K-vic98/ZKCarousel
-
-CHECKOUT OPTIONS:
-  ZKCarousel:
-    :commit: cbc948b79b5c5c6b76cfdbc1b1e18c3bf7782832
-    :git: https://github.com/K-vic98/ZKCarousel
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -785,6 +777,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
   GTMSessionFetcher: 4577a4cc914a5a07c40a8a0ad0acc22080418c2d
+  Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
   Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
@@ -793,8 +786,7 @@ SPEC CHECKSUMS:
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   Reusable: 6bae6a5e8aa793c9c441db0213c863a64bce9136
   Swinject: 97112918bd7e0785dc2df7036213f3c8cbba6586
-  ZKCarousel: 935e0aa9beed83824588d9a82d8bafa5b6fc19db
 
-PODFILE CHECKSUM: b97a70e6aa4101dd72e4b635ac64289a913578d8
+PODFILE CHECKSUM: c6fccd9e390c3155bcef52f9e068d843f9ec4a47
 
 COCOAPODS: 1.11.3

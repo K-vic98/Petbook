@@ -1,184 +1,109 @@
+import UIKit
 import Firebase
 import FirebaseFirestore
 
 let petsFirestore = "pets"
 let userPetsFirestore = "userPets"
-let favoritePetsKey = "favorite"
-let unwantedPetsKey = "unwanted"
 
 final class FirebazeIntercalation
 {
-    private let userPets: CollectionReference?
-    private let pets: CollectionReference?
-    
-    private var favoriteUserPets: [String] = []
-    private var unwantedUserPets: [String] = []
-    private var unselectedPets: [String] = []
+    private let userPets: CollectionReference
+    private let pets: CollectionReference
+    private var userUid: String?
     
     init()
     {
         FirebaseApp.configure()
+        
         let dataBaze = Firestore.firestore()
         
         pets = dataBaze.collection(petsFirestore)
         userPets = dataBaze.collection(userPetsFirestore)
+        userUid = Auth.auth().currentUser?.uid
     }
     
-    func authorizeUser(email: String, password: String) -> String?
+    // MARK: User registration and authorization
+    
+    func registerUser(email: String, password: String) async throws
     {
-        var errorMessage: String?
+        try await Auth.auth().createUser(withEmail: email, password: password)
+    }
+    
+    func authorizeUser(email: String, password: String) async throws
+    {
+        let authorization = try await Auth.auth().signIn(withEmail: email, password: password)
         
-        Auth.auth().signIn(withEmail: email, password: password)
-        { [weak self] authResult, error in
-            guard let actualyError = error else
-            {
-                guard let userID = Auth.auth().currentUser?.uid else { return }
-                let userChoice = self?.userPets?.document(userID)
-                
-                userChoice?.getDocument
-                { [weak self] documentSnapshot, error in
-                    guard let document = documentSnapshot else { return }
-                    
-                    if document.exists == true
-                    {
-                        self?.getUnselectedPets()
-                    }
-                    else
-                    {
-                        self?.userPets?.document(userID).setData(["favorite": [], "unwanted": []])
-                    }
-                }
-                
-                return
-            }
+        let userId = authorization.user.uid
+        userUid = userId
+        
+        let userChoice = userPets.document(userId)
+        let userChoiceDocument = try await userChoice.getDocument()
+        
+        if userChoiceDocument.exists == false
+        {
+            try await userChoice.setData(["0" : false])
+        }
+    }
+    
+    func getUserEmail() -> String?
+    {
+        return Auth.auth().currentUser?.email
+    }
+    
+    func logOut()
+    {
+        do
+        {
+            try Auth.auth().signOut()
+        }
+        catch
+        {
             
-            errorMessage = actualyError.localizedDescription
         }
-        
-        return errorMessage
     }
     
-    func registerUser(email: String, password: String) -> String?
+    // MARK: Receiving the information
+    
+    func getAllPets() async throws -> Set<Pet>?
     {
-        var errorMessage: String?
+        let petDocuments = try await pets.getDocuments().documents
         
-        Auth.auth().createUser(withEmail: email, password: password)
-        { authResult, error in
-            guard let actualyError = error else
-            {
-               return
-            }
+        var userChoice: DocumentSnapshot?
+        
+        if let userID = userUid
+        {
+            userChoice = try await userPets.document(userID).getDocument()
+        }
+        
+        var pets: Set<Pet> = []
+        
+        for petDocument in petDocuments
+        {
+            let id = petDocument.documentID
             
-            errorMessage = actualyError.localizedDescription
-        }
-        
-        return errorMessage
-    }
-    
-    func getUnselectedPetsCount() -> Int
-    {
-        return unselectedPets.count
-    }
-    
-    func getFavoritePetsCount() -> Int
-    {
-        return favoriteUserPets.count
-    }
-    
-    func showPetInformation()
-    {
-        let pet = userPets?.document(unselectedPets[0])
-        
-        pet?.getDocument()
-        { (document, error) in
-            guard let safeDocument = document else { return }
-            //let commentItem = PetFirebazeDocument(snapshot: safeDocument.data())
-        }
-    }
-    
-    func addPetToUser()
-    {
-        
-    }
-    
-    private func getUnselectedPets()
-    {
-        getUserFavoritePets()
-        getUserUnwantedPets()
-        
-        let petsWithStatus = favoriteUserPets + unwantedUserPets
-        
-        pets?.getDocuments(completion:
-        { [weak self] querySnapshot, error in
-            guard let query = querySnapshot else { return }
+            guard let name = petDocument["name"] as? String else { return nil }
+            guard let isBoy = petDocument["isBoy"] as? Bool else { return nil }
+            guard let age = petDocument["age"] as? Int else { return nil }
+            guard let description = petDocument["description"] as? String else { return nil }
+            guard let photo = petDocument["photo"] as? String else { return nil }
             
-            let documents = query.documents
+            guard let photoURL = URL(string: photo) else { return nil }
             
-            for document in documents
-            {
-                self?.unselectedPets.append(document.documentID)
-            }
-        })
-        
-        unselectedPets = Array(Set(unselectedPets).subtracting(petsWithStatus))
-    }
-    
-    private func getUserFavoritePets()
-    {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        
-        let userChoice = userPets?.document(userID)
-        
-        userChoice?.getDocument
-        { [weak self] (documentSnapshot, error) in
-            guard let document = documentSnapshot else { return }
-            let documentData = document.data()
-            self?.favoriteUserPets = documentData?[favoritePetsKey] as? [String] ?? []
+            let sympathy = userChoice?[petDocument.documentID] as? Bool
+            let sex = Sex(isBoy)
+            
+            pets.insert(Pet(id: id, sympathy: sympathy, name: name, sex: sex, age: age, description: description, photoURL: photoURL))
         }
-    }
-    
-    private func getUserUnwantedPets()
-    {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        let userChoice = userPets?.document(userID)
-        
-        userChoice?.getDocument
-        { [weak self] (documentSnapshot, error) in
-            guard let document = documentSnapshot else { return }
-            let documentData = document.data()
-            self?.unwantedUserPets = documentData?[unwantedPetsKey] as? [String] ?? []
-        }
+        return pets
     }
-}
-
-struct PetFirebazeDocument
-{
-    var documentId : String?
-    let age: Int?
-    let description: String?
-    let name: String?
-    let photosLink: String?
-    let sex: Bool?
     
-    var dictionary : [String:Any]
+    // MARK: Information update
+    
+    func setSympathy(petWithId: String, sympathy: Bool) async throws
     {
-        return [
-                "age": age  ?? 0,
-                "description": description  ?? "",
-                "name": name  ?? "",
-                "photosLink": photosLink  ?? "",
-                "sex": sex  ?? false
-               ]
-    }
-    
-    init(snapshot: QueryDocumentSnapshot) {
-        documentId = snapshot.documentID
-        let snapshotValue = snapshot.data()
-        age = snapshotValue["age"] as? Int
-        description = snapshotValue["description"] as? String
-        name = snapshotValue["name"] as? String
-        photosLink = snapshotValue["photosLink"] as? String
-        sex = snapshotValue["sex"] as? Bool
+        guard let userUid = userUid else { return }
+        
+        try await userPets.document(userUid).updateData([petWithId as NSString: sympathy])
     }
 }
