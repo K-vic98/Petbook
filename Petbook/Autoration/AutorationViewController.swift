@@ -29,6 +29,7 @@ final class AutorationViewController: UIViewController
         Task
         {
             try await firebazeIntercalation?.authorizeUser(email: login, password: password)
+            
             await MainActor.run
             {
                 UIApplication.shared.keyWindow?.rootViewController = openTabBarController()
@@ -44,6 +45,11 @@ final class AutorationViewController: UIViewController
         Task
         {
             try await firebazeIntercalation?.registerUser(email: login, password: password)
+            
+            await MainActor.run
+            {
+                UIApplication.shared.keyWindow?.rootViewController = openTabBarController()
+            }
         }
     }
     

@@ -24,11 +24,6 @@ final internal class PetCardView: UIView, NibLoadable
         }
     }
     
-    @IBAction private func cardPressed(_ sender: UIButton)
-    {
-        petClickHandlerDelegate?.openDescription(pet: pet ?? nil)
-    }
-    
     override func layoutSubviews()
     {
         super.layoutSubviews()
@@ -36,6 +31,11 @@ final internal class PetCardView: UIView, NibLoadable
         decorate(label: ageLabel, cornerRadius: ageLabel.bounds.height / 2)
         decorate(label: nameLabel, cornerRadius: 4)
         decorate(label: sexLabel, cornerRadius: sexLabel.bounds.height / 2)
+    }
+    
+    @IBAction private func cardPressed(_ sender: UIButton)
+    {
+        petClickHandlerDelegate?.openDescription(pet: pet ?? nil)
     }
     
     private func decorate(label: UILabel, cornerRadius: CGFloat)

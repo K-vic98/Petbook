@@ -3,7 +3,7 @@ import Kingfisher
 
 final class DescriptionViewController: UIViewController
 {
-    @IBOutlet weak var photoImage: UIImageView!
+    @IBOutlet private weak var photoImage: UIImageView!
     @IBOutlet private weak var nameAndSexLabel: UILabel!
     @IBOutlet private weak var ageLabel: UILabel!
     @IBOutlet private weak var descriptionTextView: UITextView!

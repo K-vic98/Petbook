@@ -24,7 +24,7 @@ final class AccountViewController: UIViewController
         userEmailLabel.text = userEmail
     }
     
-    @IBAction func logOut(_ sender: Any)
+    @IBAction private func logOut(_ sender: Any)
     {
         firebazeIntercalation?.logOut()
         UIApplication.shared.keyWindow?.rootViewController = AutorationViewController()

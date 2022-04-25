@@ -35,7 +35,7 @@
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wEv-1N-4aJ" userLabel="Password">
                     <rect key="frame" x="40" y="499" width="334" height="74"/>
                     <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                    <textInputTraits key="textInputTraits" textContentType="new-password"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="new-password"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P10-Rd-N53">
                     <rect key="frame" x="80" y="613" width="254" height="73.5"/>

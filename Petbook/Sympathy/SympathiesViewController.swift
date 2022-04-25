@@ -24,12 +24,12 @@ final class SympathiesViewController: UITableViewController
     
     override func viewWillAppear(_ animated: Bool)
     {
-        super.viewWillAppear(animated)
-        
         let allPets = petRepo?.pets
         favoritePets = Array(allPets?.filter { $0.sympathy == true } ?? [])
         
         tableView.reloadData()
+        
+        super.viewWillAppear(animated)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -52,6 +52,7 @@ final class SympathiesViewController: UITableViewController
     {
         let description = DescriptionViewController()
         description.pet = favoritePets[indexPath.item]
+        
         present(description, animated: true)
     }
     

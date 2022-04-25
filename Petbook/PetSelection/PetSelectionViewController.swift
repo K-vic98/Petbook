@@ -11,9 +11,8 @@ final class PetSelectionViewController: UIViewController
     init()
     {
         petRepo = container.resolve(PetRepo.self)
-        petsWithoutData = Array(petRepo?.pets.filter({ pet in
-            pet.sympathy == nil
-        }) ?? [])
+        petsWithoutData = Array(petRepo?.pets.filter( { pet in pet.sympathy == nil }) ?? [])
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,8 +24,6 @@ final class PetSelectionViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        title = "Pets"
         
         kolodaView.dataSource = self
         kolodaView.delegate = self
@@ -56,6 +53,7 @@ extension PetSelectionViewController: KolodaViewDelegate
                 
             case .right, .topRight, .bottomRight:
                 petRepo?[sympathyFor: petID] = true
+                
             default: ()
         }
     }

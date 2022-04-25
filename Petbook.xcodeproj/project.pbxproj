@@ -173,19 +173,19 @@
 		57912030280D80690004C09B /* Petbook */ = {
 			isa = PBXGroup;
 			children = (
-				5759822D280F1421005AE59C /* Firebaze */,
-				57ECA530280D98CE00D0543D /* Autoration */,
-				5747AF57280D82EE007107B2 /* Sympathy */,
-				5747AF52280D82E6007107B2 /* PetSelection */,
-				5747AF4D280D82DB007107B2 /* PetCard */,
-				5747AF48280D82D5007107B2 /* Description */,
-				5747AF45280D82CD007107B2 /* Data */,
-				5747AF40280D82C3007107B2 /* AppDelegate */,
 				5747AF3D280D82B5007107B2 /* Account */,
+				5747AF40280D82C3007107B2 /* AppDelegate */,
 				5791203A280D806A0004C09B /* Assets.xcassets */,
-				5791203C280D806A0004C09B /* LaunchScreen.storyboard */,
-				5791203F280D806A0004C09B /* Info.plist */,
+				57ECA530280D98CE00D0543D /* Autoration */,
+				5747AF45280D82CD007107B2 /* Data */,
+				5747AF48280D82D5007107B2 /* Description */,
+				5759822D280F1421005AE59C /* Firebaze */,
 				57E9C872280D8B350023FD4A /* GoogleService-Info.plist */,
+				5791203F280D806A0004C09B /* Info.plist */,
+				5791203C280D806A0004C09B /* LaunchScreen.storyboard */,
+				5747AF4D280D82DB007107B2 /* PetCard */,
+				5747AF52280D82E6007107B2 /* PetSelection */,
+				5747AF57280D82EE007107B2 /* Sympathy */,
 			);
 			path = Petbook;
 			sourceTree = "<group>";
